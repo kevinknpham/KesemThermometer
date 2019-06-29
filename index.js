@@ -142,6 +142,9 @@ the drawing itself and functionality to the form components.
     
     window.addEventListener("load", init);
     
+    /**
+     * Initializes website, including buttons and preliminary drawings.
+     */
     function init() {
         let canvas = qs("canvas");
         let ctx = canvas.getContext("2d");
@@ -156,6 +159,11 @@ the drawing itself and functionality to the form components.
         id("save").addEventListener("click", () => saveAsImage(canvas));
     }
     
+    /**
+     * Toggles grid lines
+     * @param {Object} canvas - DOM for canvas being drawn on
+     * @param {Object} ctx - context used to draw on canvas
+     */
     function toggleGrid(canvas, ctx) {
         if (grid) {
             milestones(ctx, canvas.height);
@@ -177,6 +185,10 @@ the drawing itself and functionality to the form components.
         ctx.fillText("CK", 0, 15);
     }
     
+    /**
+     * Saves whatever is on the given canvas as an image
+     * @param {Object} canvas - DOM for canvas being drawn on
+     */
     function saveAsImage(canvas) {
         let link = document.getElementById('link');
         link.setAttribute('download', 'KarlThermometer.png');
@@ -184,6 +196,11 @@ the drawing itself and functionality to the form components.
         link.click();
     }
     
+    /**
+     * Draws grid lines at every tenth of the goal.
+     * @param {Object} ctx - context used to draw on canvas
+     * @param {Number} height - height of canvas being drawn on
+     */
     function milestones(ctx, height) {
         for (let i = 0; i <= 10; i++) {
             let pos = min + Math.round(i / 10 * (max - min));
@@ -200,6 +217,12 @@ the drawing itself and functionality to the form components.
         }
     }
     
+    /**
+     * Draws the caterpillar based on user input.  Alerts user if input is invalid.
+     * This could mean an integer can't be parsed from the input or that the goal
+     * is less than the current amount.
+     * @param {Object} ctx - context used to draw on canvas
+     */
     function redraw(ctx) {
         let current = parseInt(qs("input[name='current']").value);
         let goal = parseInt(qs("input[name='goal']").value);
@@ -212,6 +235,11 @@ the drawing itself and functionality to the form components.
         }
     }
     
+    /**
+     * Displays result text with a message depending on the amount raised.
+     * @param {Number} current - current amount raised
+     * @param {Number} goal - goal for fundraiser
+     */
     function showResults(current, goal) {
         let percent = Math.round(current / goal * 100);
         let title = qs("#results h2");
@@ -233,6 +261,11 @@ the drawing itself and functionality to the form components.
         id("results").classList.remove("hidden");
     }
     
+    /**
+     * Creates left and right bounds for thermometer based on circles being drawn.
+     * Sets min and max to calculated values.  min/max will be within bounds of canvas.
+     * @param {Object} canvas - DOM for canvas being drawn on
+     */
     function getMaxAndMin(canvas) {
         let circle = CIRCLES[0];
         min = circle.x - circle.r;
@@ -246,6 +279,13 @@ the drawing itself and functionality to the form components.
         max = Math.min(max, canvas.width);
     }
     
+    /**
+     * Draws circles using given information.  Will color orange/white depending on
+     * the current amount and end goal.
+     * @param {Object} ctx - context used to draw on canvas
+     * @param {Number} current - current amount raised
+     * @param {Number} goal - goal to be earned
+     */
     function draw(ctx, current, goal) {
         let separator = Math.round((max - min) * current / goal) + min;
         for (let i = 0; i < CIRCLES.length; i++) {

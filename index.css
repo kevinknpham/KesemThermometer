@@ -42,6 +42,15 @@ canvas {
     border: 5px solid black;
 }
 
+#results h2 {
+    font-size: 30pt;
+    margin-bottom: 5px;
+}
+
+#results p {
+    font-size: 20pt;
+}
+
 .hidden {
     display: none;
 }
