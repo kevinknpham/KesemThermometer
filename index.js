@@ -170,6 +170,11 @@ the drawing itself and functionality to the form components.
         }
         draw(ctx, 0, 1000);
         grid = !grid;
+        ctx.font = "20px Righteous";
+        ctx.fillStyle = "orange";
+        ctx.fillText("CK", 0, 0);
+        ctx.fillStyle = "black";
+        ctx.fillText("CK", 1, 16);
     }
     
     function saveAsImage(canvas) {
