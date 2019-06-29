@@ -138,6 +138,7 @@ the drawing itself and functionality to the form components.
     
     let min;
     let max;
+    let grid = false;
     
     window.addEventListener("load", init);
     
@@ -147,16 +148,35 @@ the drawing itself and functionality to the form components.
         
         getMaxAndMin(canvas);
         
-        let grd = ctx.createLinearGradient(0, 0, 1000, 0);
-        grd.addColorStop(0, "#00c08a");
-        grd.addColorStop(1, "#008fbe");
-        ctx.fillStyle = grd;
-        ctx.fillRect(0, 0, 1000, 300);
-        
-        milestones(ctx, canvas.height);
-        draw(ctx, 0, 1000);
+        toggleGrid(canvas, ctx);
+        toggleGrid(canvas, ctx);
         
         id("submit").addEventListener("click", () => redraw(ctx));
+        id("grid").addEventListener("click", () => toggleGrid(canvas, ctx));
+        id("save").addEventListener("click", () => saveAsImage(canvas));
+    }
+    
+    function toggleGrid(canvas, ctx) {
+        if (grid) {
+            milestones(ctx, canvas.height);
+            id("grid").innerText = "Remove Grid Lines";
+        }else {
+            let grd = ctx.createLinearGradient(0, 0, 1000, 0);
+            grd.addColorStop(0, "#00c08a");
+            grd.addColorStop(1, "#008fbe");
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, 1000, 300);
+            id("grid").innerText = "Add Grid Lines";
+        }
+        draw(ctx, 0, 1000);
+        grid = !grid;
+    }
+    
+    function saveAsImage(canvas) {
+        let link = document.getElementById('link');
+        link.setAttribute('download', 'KarlThermometer.png');
+        link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+        link.click();
     }
     
     function milestones(ctx, height) {
