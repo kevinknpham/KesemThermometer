@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="index.css" />
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Karl Thermometer</h1>
+            <p>Help Camp Kesem raise money to help kids affected by a parent's cancer.</p>
+        </header>
+        
+        <main>
+            <canvas width="1000" height="300"></canvas>
+            <section id="results" class="hidden">
+                <h2></h2>
+                <p>Camp Kesem has raised $<span id="current-result"></span> of it's $<span id="goal-result"></span> goal.</p>
+            </section>
+            <form>
+                <label for="current">Current amount:</label><input type="number" name="current" id="current" />
+                <label for="goal">Goal:</label><input type="number" name="goal" id="goal" />
+                <button type="button" id="submit">Where's Karl?</button>
+            </form>
+        </main>
+    </body>
+</html>
