@@ -171,10 +171,10 @@ the drawing itself and functionality to the form components.
         draw(ctx, 0, 1000);
         grid = !grid;
         ctx.font = "20px Righteous";
-        ctx.fillStyle = "orange";
-        ctx.fillText("CK", 0, 0);
-        ctx.fillStyle = "black";
-        ctx.fillText("CK", 1, 16);
+        ctx.fillStyle = "purple";
+        ctx.fillText("UW", 25, 22);
+        ctx.fillStyle = "gold";
+        ctx.fillText("CK", 0, 15);
     }
     
     function saveAsImage(canvas) {
