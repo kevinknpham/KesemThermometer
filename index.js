@@ -173,10 +173,6 @@ the drawing itself and functionality to the form components.
             ctx.fillStyle = "black";
             ctx.fillText(i * 10 + "%", pos, height - 23);
         }
-//        ctx.beginPath();
-//        ctx.moveTo(max, 0);
-//        ctx.lineTo(max, height);
-//        ctx.stroke();
     }
     
     function redraw(ctx) {

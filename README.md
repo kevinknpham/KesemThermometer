@@ -1,0 +1,3 @@
+# Karl Thermometer
+
+Karl Thermometer is a visual representation of fundraising efforts.  Designed for use with Camp Kesem, it displays a caterpillar using HTML5 canvas that is colored in to show the amount fundraised.  Source code can easily be changed to use a different image, but is most effective when used with an image consisting of circles.  Using other shapes would require more modifications to the code.
