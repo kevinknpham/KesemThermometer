@@ -136,6 +136,9 @@ the drawing itself and functionality to the form components.
         }
     ];
     
+    // Needs exactly 2 elements that should be strings representing valid colors
+    const LOGO_COLORS = ["purple", "gold"];
+    
     let min;
     let max;
     let grid = false;
@@ -154,7 +157,7 @@ the drawing itself and functionality to the form components.
         toggleGrid(canvas, ctx);
         toggleGrid(canvas, ctx);
         
-        id("submit").addEventListener("click", () => redraw(ctx));
+        id("submit").addEventListener("click", () => redraw(canvas, ctx));
         id("grid").addEventListener("click", () => toggleGrid(canvas, ctx));
         id("save").addEventListener("click", () => saveAsImage(canvas));
     }
@@ -170,8 +173,8 @@ the drawing itself and functionality to the form components.
             id("grid").innerText = "Remove Grid Lines";
         }else {
             let grd = ctx.createLinearGradient(0, 0, 1000, 0);
-            grd.addColorStop(0, "#00c08a");
-            grd.addColorStop(1, "#008fbe");
+            grd.addColorStop(0, id("gradient1").value);
+            grd.addColorStop(1, id("gradient2").value);
             ctx.fillStyle = grd;
             ctx.fillRect(0, 0, 1000, 300);
             id("grid").innerText = "Add Grid Lines";
@@ -179,9 +182,9 @@ the drawing itself and functionality to the form components.
         draw(ctx, 0, 1000);
         grid = !grid;
         ctx.font = "20px Righteous";
-        ctx.fillStyle = "purple";
+        ctx.fillStyle = LOGO_COLORS[0];
         ctx.fillText("UW", 25, 22);
-        ctx.fillStyle = "gold";
+        ctx.fillStyle = LOGO_COLORS[1];
         ctx.fillText("CK", 0, 15);
     }
     
@@ -210,7 +213,7 @@ the drawing itself and functionality to the form components.
             ctx.stroke();
             
             ctx.font = "20px Righteous";
-            ctx.fillStyle = "orange";
+            ctx.fillStyle = id("fill1").value;
             ctx.fillText(i * 10 + "%", pos + 3, height - 20);
             ctx.fillStyle = "black";
             ctx.fillText(i * 10 + "%", pos, height - 23);
@@ -223,7 +226,9 @@ the drawing itself and functionality to the form components.
      * is less than the current amount.
      * @param {Object} ctx - context used to draw on canvas
      */
-    function redraw(ctx) {
+    function redraw(canvas, ctx) {
+        toggleGrid(canvas, ctx);
+        toggleGrid(canvas, ctx);
         let current = parseInt(qs("input[name='current']").value);
         let goal = parseInt(qs("input[name='goal']").value);
         if (Number.isNaN(current) || Number.isNaN(goal) ||
@@ -291,13 +296,13 @@ the drawing itself and functionality to the form components.
         for (let i = 0; i < CIRCLES.length; i++) {
             let circle = CIRCLES[i];
             if (circle.x + circle.r <= separator) {
-                drawCircle(ctx, circle.x, circle.y, circle.r, "orange", 0, CIRCLE_END);
+                drawCircle(ctx, circle.x, circle.y, circle.r, id("fill1").value, 0, CIRCLE_END);
             }else if (circle.x - circle.r >= separator) {
-                drawCircle(ctx, circle.x, circle.y, circle.r, "white", 0, CIRCLE_END);
+                drawCircle(ctx, circle.x, circle.y, circle.r, id("fill2").value, 0, CIRCLE_END);
             }else {
                 let angle = Math.acos((separator - circle.x) / circle.r);
-                drawCircle(ctx, circle.x, circle.y, circle.r, "orange", angle, CIRCLE_END - angle);
-                drawCircle(ctx, circle.x, circle.y, circle.r, "white", CIRCLE_END - angle, angle);
+                drawCircle(ctx, circle.x, circle.y, circle.r, id("fill1").value, angle, CIRCLE_END - angle);
+                drawCircle(ctx, circle.x, circle.y, circle.r, id("fill2").value, CIRCLE_END - angle, angle);
             }
         }
     }
